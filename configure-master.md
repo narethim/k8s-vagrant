@@ -34,7 +34,9 @@ Comment out the following:
 ## Add the Docker Repository
 
 ```sh
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add –
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg > docker-key
+sudo apt-key add docker-key
+sudo rm docker-key
 
 sudo add-apt-repository  "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 ```
@@ -42,12 +44,12 @@ sudo add-apt-repository  "deb [arch=amd64] https://download.docker.com/linux/ubu
 ## Add the Kubernetes Repository
 
 ```sh
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add –
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg > k8s-key
+sudo apt-key add k8s-key
+sudo rm k8s-key
 
 cat << EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-
 deb https://apt.kubernetes.io/ kubernetes-xenial main
-
 EOF
 ```
 
