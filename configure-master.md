@@ -8,7 +8,7 @@ vagrant up
 vagrant ssh
 ```
 
-#### Change hostname
+## Change hostname
 
 ```sh
 sudo vi /etc/hosts
@@ -16,7 +16,7 @@ sudo vi /etc/hosts
 
 Replace `vagrant` with `master`
 
-#### Disable swap
+## Disable swap
 
 ```sh
 sudo swapoff -a
@@ -31,7 +31,7 @@ Comment out the following:
 #/dev/mapper/vagrant--vg-swap_1 none            swap    sw              0       0
 ```
 
-#### Add the Docker Repository
+## Add the Docker Repository
 
 ```sh
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add –
@@ -39,7 +39,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add –
 sudo add-apt-repository  "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 ```
 
-#### Add the Kubernetes Repository
+## Add the Kubernetes Repository
 
 ```sh
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add –
@@ -51,7 +51,7 @@ deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 ```
 
-#### Install
+## Install
 
 ```sh
 sudo apt-get update
@@ -67,7 +67,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold docker-ce kubelet kubeadm kubectl
 ```
 
-#### Enable bridge networking
+## Enable bridge networking
 
 ```sh
 echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
@@ -75,7 +75,7 @@ echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-#### Run following only on `master` node
+## Run following only on `master` node
 
 ```sh
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.56.30
@@ -95,6 +95,53 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8
 kubectl get nodes
 
 (wait for sometime, it status will become ready)
-
 ```
 
+## Application, deployment, and service
+
+### deployment.yaml
+
+```yml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webapp1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webapp1
+    spec:
+      containers:
+        name: webapp1
+        image: katacoda/docker-http-server:latest
+      ports:
+        containerPort: 80
+```
+
+```sh
+ kubectl apply -f deployment.yaml
+```
+
+### service.yaml
+
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+   name: webapp1-svc
+   labels:
+     app: webapp1
+spec:
+   type: NodePort
+   ports:
+     port: 80
+     nodePort: 30080
+   selector:
+     app: webapp1
+```
+
+```sh
+ kubectl apply -f service.yaml
+```
