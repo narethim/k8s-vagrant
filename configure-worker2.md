@@ -70,3 +70,18 @@ echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
 
 sudo sysctl -p
 ```
+
+## Join master
+
+```sh
+# Join master node
+sudo kubeadm join <master_ip>:6443 –token <token> --discovery-token-ca-cert-hash <hash>
+```
+
+Example:
+
+```sh
+# Join master node
+sudo kubeadm join 192.168.56.30:6443 --token en93zd.xmk7vrkwr6taksmu \
+    --discovery-token-ca-cert-hash sha256:9b3683b18ddcf8c7cc161aa2adc32d7a18171c8bf983091dbfb6c9e727acfe43
+```
