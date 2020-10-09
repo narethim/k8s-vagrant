@@ -18,11 +18,11 @@ git clone https://github.com/narethim/k8s-vagrant.git
 
 #### Follow the following sequences
 
-| No  | Links | Description |
-| --- | ----- | ----------- |
-| 1.  | [Kubernetes Cluster using Vagrant and Ansible](https://www.itwonderlab.com/en/ansible-kubernetes-vagrant-tutorial/) | Launch a Kubernetes cluster for local development |
-| 2.  | [First Steps After Kubernetes Installation](https://www.itwonderlab.com/en/installating-kubernetes-dashboard/) | Recommended steps after a Kubernetes Cluster deployment |
-| 3.  | [Using a NodePort in a Kubernetes Cluster on top of VirtualBox](https://www.itwonderlab.com/en/nodeport-kubernetes-cluster/) | Publish an Application Outside Kubernetes Cluster using a NodePort. |
+| No  | Links | Description | Notes |
+| --- | ----- | ----------- | ----- |
+| 1.  | [Kubernetes Cluster using Vagrant and Ansible](https://www.itwonderlab.com/en/ansible-kubernetes-vagrant-tutorial/) | Launch a Kubernetes cluster for local development | [link 1](example/step-01.md) |
+| 2.  | [First Steps After Kubernetes Installation](https://www.itwonderlab.com/en/installating-kubernetes-dashboard/) | Recommended steps after a Kubernetes Cluster deployment | [link 2](example/step-02.md) |
+| 3.  | [Using a NodePort in a Kubernetes Cluster on top of VirtualBox](https://www.itwonderlab.com/en/nodeport-kubernetes-cluster/) | Publish an Application Outside Kubernetes Cluster using a NodePort. | [link 3](example/step-03.md) |
 
 #### Arrticles
 
